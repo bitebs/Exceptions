@@ -1,0 +1,113 @@
+package 
+com.company
+;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class Players {
+    public static void main(String[] args) {
+        Player player = new Player("alex");
+        
+//System.out.println
+(player.getName());
+        player.working();
+        Player player2  = new Player("ivan");
+        player2.working();
+        
+//System.out.println
+(player2.getName());
+        List<Player> players = new LinkedList<>();
+        players.add(player);
+        players.add(player2);
+
+        Rate rate = new Rate(players);
+
+        players.forEach(p -> System.out.println(p.getName()+" "+
+                p.getRate()));
+
+        rate.change(player);
+        players.forEach(p -> System.out.println(p.getName()+" "+
+                p.getRate()));
+    }
+}
+
+class Player {
+    public Player(String name){
+        this.name=name;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    private String name = null;
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
+    private int rate;
+
+    public void working(){
+        System.out.println(getName()+
+                "Run to the ball and glory!");
+    }
+
+    public void print(){
+        System.out.println("sdf");
+    }
+}
+
+class Game {
+    public byte getSingleGame() {
+        return singleGame;
+    }
+
+    private final byte singleGame;
+    public Game(byte singleGame){
+        this.singleGame=singleGame;
+    }
+}
+
+class GameSeason {
+    private final LinkedList<Game> game;
+
+    public GameSeason(byte singleGame) {
+        game = new LinkedList<>();
+        game.add(new Game((byte)1));
+        game.add(new Game((byte)2));
+        game.add(new Game((byte)3));
+        game.add(new Game((byte)4));
+        game.add(new Game((byte)5));
+    }
+}
+
+class Rate  {
+    public Rate(List<Player> players){
+        players.forEach(player -> player.setRate((int) (Math.random()*101)));
+    }
+
+    public void incRate(Player player){
+        player.setRate(player.getRate()+10);
+        System.out.println(player.getName()+
+                " Congratulations,player. Level up! Enjoy our future games. " +
+                "Rate="+player.getRate());
+    }
+
+    public void decRate(Player player){
+        player.setRate(player.getRate()-10);
+        System.out.println(player.getName() + "Congratulations,player." +
+                "You are loser! Enjoy our future games. Rate="+player.getRate());
+    }
+
+    public void change(Player player){
+        int choice = (int)(Math.random()*2);
+        if (choice==0) incRate(player);
+        else decRate(player);
+    }
+} 
